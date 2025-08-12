@@ -23,9 +23,14 @@
 
         /* iPhone optimizations */
         @media (max-width: 480px) {
-            body { font-size: 16px; }
+            body { 
+                font-size: 16px; 
+                -webkit-text-size-adjust: 100%;
+                text-size-adjust: 100%;
+            }
             .name { font-size: 2.2em; }
             .title { font-size: 1.3em; }
+            .subtitle { font-size: 1.1em; }
             .section-title { font-size: 2.2em; }
             .stat-number { font-size: 2.5em; }
             .project-title { font-size: 1.8em; }
@@ -34,9 +39,36 @@
             .project-card, .stat-card { padding: 25px 20px; }
             .tech-stack { gap: 8px; }
             .tech-tag { font-size: 0.8em; padding: 6px 12px; }
-            .cta-buttons { gap: 15px; }
-            .cta-btn { padding: 12px 25px; font-size: 1em; }
+            .cta-buttons { 
+                gap: 15px; 
+                flex-direction: column;
+                align-items: center;
+            }
+            .cta-btn { 
+                padding: 12px 25px; 
+                font-size: 1em; 
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+            }
             .skill-category { padding: 20px; }
+            .contact-info { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 15px; 
+            }
+            .contact-item { 
+                font-size: 0.9em; 
+                padding: 8px 0;
+            }
+            .value-proposition { 
+                margin: 20px 0; 
+                padding: 20px; 
+            }
+            .cta-section { 
+                padding: 40px 0; 
+                margin: 30px 0; 
+            }
         }
 
         .container {
@@ -290,11 +322,43 @@
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(90, 103, 216, 0.1));
             margin: 60px 0;
             border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .cta-title {
             font-size: 2.5em;
             margin-bottom: 20px;
+            position: relative;
+        }
+
+        .cta-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #5a67d8);
+            border-radius: 2px;
         }
 
         .cta-buttons {
@@ -315,11 +379,28 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
         }
 
         .cta-btn.primary {
             background: linear-gradient(45deg, #00d4ff, #5a67d8);
             color: white;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
         }
 
         .cta-btn.secondary {
@@ -331,6 +412,50 @@
         .cta-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+        }
+
+
+
+        /* Professional Design Elements */
+        .value-proposition {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(90, 103, 216, 0.1));
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+        }
+
+        /* Enhanced Card Hover Effects */
+        .project-card, .stat-card, .cert-badge {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .project-card:hover, .stat-card:hover, .cert-badge:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Progress Indicators */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #5a67d8);
+            border-radius: 3px;
+            animation: progress-animation 2s ease-out;
+        }
+
+        @keyframes progress-animation {
+            from { width: 0%; }
+            to { width: 100%; }
         }
 
         /* Skills */
@@ -451,6 +576,63 @@
                 <span class="contact-item">📱 +966501932373</span>
             </div>
         </header>
+
+        <!-- Why Me Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Why I'm The Perfect Fit For Your Team 🎯</h2>
+            <p style="font-size: 1.3em; margin-bottom: 30px; opacity: 0.9;">
+                I don't just study cybersecurity – I live it. From AI-powered solutions to hands-on SOC experience, I bring immediate value to your organization.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+                <div style="background: rgba(0, 212, 255, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(0, 212, 255, 0.3);">
+                    <h3 style="color: #00d4ff; margin-bottom: 15px;">🚀 Innovation Mindset</h3>
+                    <p>Built AI-VARA platform achieving 98% accuracy - I don't just follow trends, I create solutions that deliver real business impact.</p>
+                </div>
+                
+                <div style="background: rgba(255, 107, 107, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 107, 107, 0.3);">
+                    <h3 style="color: #ff6b6b; margin-bottom: 15px;">⚡ Practical Experience</h3>
+                    <p>Home SOC lab with Wazuh + real-world experience at SEC means I understand both theory and practice of threat detection.</p>
+                </div>
+                
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 215, 0, 0.3);">
+                    <h3 style="color: #ffd700; margin-bottom: 15px;">🎓 Academic Excellence</h3>
+                    <p>4.38 GPA + 7 industry certifications show I'm committed to continuous learning and staying ahead of threats.</p>
+                </div>
+                
+                <div style="background: rgba(90, 103, 216, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(90, 103, 216, 0.3);">
+                    <h3 style="color: #5a67d8; margin-bottom: 15px;">🇸🇦 Local Expertise</h3>
+                    <p>Deep understanding of Saudi compliance frameworks (ECC, SAMA CSF) - I speak your regulatory language fluently.</p>
+                </div>
+                
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <h3 style="color: #10b981; margin-bottom: 15px;">🔄 Ready to Contribute</h3>
+                    <p>Fresh graduate energy + proven project delivery means I'll hit the ground running from day one.</p>
+                </div>
+                
+                <div style="background: rgba(139, 92, 246, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(139, 92, 246, 0.3);">
+                    <h3 style="color: #8b5cf6; margin-bottom: 15px;">🛠️ Full-Stack Security</h3>
+                    <p>From GRC frameworks to threat hunting to AI integration - I understand security from every angle.</p>
+                </div>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="mailto:salman.alqasmah@outlook.com?subject=Let's%20Talk%20About%20Your%20Cybersecurity%20Needs" class="cta-btn primary">
+                    💬 Let's Talk
+                </a>
+                <a href="https://linkedin.com/in/salman-alqasmah" target="_blank" class="cta-btn secondary">
+                    🤝 Connect on LinkedIn
+                </a>
+                <a href="https://github.com/Salmanalqsamah" target="_blank" class="cta-btn secondary">
+                    💻 Explore My Projects
+                </a>
+            </div>
+            
+            <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(90, 103, 216, 0.2)); border-radius: 15px; border: 1px solid rgba(0, 212, 255, 0.5);">
+                <h3 style="color: #ffffff; margin-bottom: 15px;">💼 The Bottom Line</h3>
+                <p style="font-size: 1.1em; font-weight: 500;">You're not just hiring a graduate – you're investing in someone who's already building the future of cybersecurity. Let's secure your organization together!</p>
+            </div>
+        </section>
 
         <!-- Stats Section -->
         <section class="stats-section">
@@ -682,72 +864,39 @@
             </div>
         </section>
 
-        <!-- Why Me Section -->
-        <section class="cta-section">
-            <h2 class="cta-title">Why I'm The Perfect Fit For Your Team 🎯</h2>
-            <p style="font-size: 1.3em; margin-bottom: 30px; opacity: 0.9;">
-                I don't just study cybersecurity – I live it. From AI-powered solutions to hands-on SOC experience, I bring immediate value to your organization.
-            </p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
-                <div style="background: rgba(0, 212, 255, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(0, 212, 255, 0.3);">
-                    <h3 style="color: #00d4ff; margin-bottom: 15px;">🚀 Innovation Mindset</h3>
-                    <p>Built AI-VARA platform achieving 98% accuracy - I don't just follow trends, I create solutions that deliver real business impact.</p>
-                </div>
-                
-                <div style="background: rgba(255, 107, 107, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 107, 107, 0.3);">
-                    <h3 style="color: #ff6b6b; margin-bottom: 15px;">⚡ Practical Experience</h3>
-                    <p>Home SOC lab with Wazuh + real-world experience at SEC means I understand both theory and practice of threat detection.</p>
-                </div>
-                
-                <div style="background: rgba(255, 215, 0, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 215, 0, 0.3);">
-                    <h3 style="color: #ffd700; margin-bottom: 15px;">🎓 Academic Excellence</h3>
-                    <p>4.38 GPA + 7 industry certifications show I'm committed to continuous learning and staying ahead of threats.</p>
-                </div>
-                
-                <div style="background: rgba(90, 103, 216, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(90, 103, 216, 0.3);">
-                    <h3 style="color: #5a67d8; margin-bottom: 15px;">🇸🇦 Local Expertise</h3>
-                    <p>Deep understanding of Saudi compliance frameworks (ECC, SAMA CSF) - I speak your regulatory language fluently.</p>
-                </div>
-                
-                <div style="background: rgba(16, 185, 129, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                    <h3 style="color: #10b981; margin-bottom: 15px;">🔄 Ready to Contribute</h3>
-                    <p>Fresh graduate energy + proven project delivery means I'll hit the ground running from day one.</p>
-                </div>
-                
-                <div style="background: rgba(139, 92, 246, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(139, 92, 246, 0.3);">
-                    <h3 style="color: #8b5cf6; margin-bottom: 15px;">🛠️ Full-Stack Security</h3>
-                    <p>From GRC frameworks to threat hunting to AI integration - I understand security from every angle.</p>
-                </div>
-            </div>
-            
-            <div class="cta-buttons">
-                <a href="mailto:salman.alqasmah@outlook.com?subject=Let's%20Talk%20About%20Your%20Cybersecurity%20Needs" class="cta-btn primary">
-                    💬 Let's Talk
-                </a>
-                <a href="https://linkedin.com/in/salman-alqasmah" target="_blank" class="cta-btn secondary">
-                    🤝 Connect on LinkedIn
-                </a>
-                <a href="https://github.com/Salmanalqsamah" target="_blank" class="cta-btn secondary">
-                    💻 Explore My Projects
-                </a>
-            </div>
-            
-            <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(90, 103, 216, 0.2)); border-radius: 15px; border: 1px solid rgba(0, 212, 255, 0.5);">
-                <h3 style="color: #ffffff; margin-bottom: 15px;">💼 The Bottom Line</h3>
-                <p style="font-size: 1.1em; font-weight: 500;">You're not just hiring a graduate – you're investing in someone who's already building the future of cybersecurity. Let's secure your organization together!</p>
-            </div>
-        </section>
     </div>
 
     <script>
-        // Add some interactive animations
+        // Professional interactive animations
         document.addEventListener('DOMContentLoaded', function() {
-            // Animate stat numbers
+            // Animate stat numbers with counting effect
             const statNumbers = document.querySelectorAll('.stat-number');
             statNumbers.forEach(stat => {
+                const finalValue = stat.textContent;
+                const isPercentage = finalValue.includes('%');
+                const isDecimal = finalValue.includes('.');
+                const numericValue = parseFloat(finalValue.replace(/[^\d.]/g, ''));
+                
+                let currentValue = 0;
+                const increment = numericValue / 50;
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= numericValue) {
+                        currentValue = numericValue;
+                        clearInterval(timer);
+                    }
+                    
+                    if (isPercentage) {
+                        stat.textContent = Math.floor(currentValue) + '%';
+                    } else if (isDecimal) {
+                        stat.textContent = currentValue.toFixed(2);
+                    } else {
+                        stat.textContent = Math.floor(currentValue);
+                    }
+                }, 30);
+                
                 stat.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.1)';
+                    this.style.transform = 'scale(1.05)';
                     this.style.transition = 'transform 0.3s ease';
                 });
                 stat.addEventListener('mouseleave', function() {
@@ -755,13 +904,15 @@
                 });
             });
 
-            // Add scroll animations
+            // Smooth scroll animations
             const cards = document.querySelectorAll('.project-card, .stat-card, .cert-badge');
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+                entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
                     }
                 });
             });
@@ -771,6 +922,31 @@
                 card.style.transform = 'translateY(20px)';
                 card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(card);
+            });
+
+            // Enhanced hover effects for buttons
+            const ctaButtons = document.querySelectorAll('.cta-btn');
+            ctaButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
             });
         });
     </script>
